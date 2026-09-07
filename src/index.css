@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Philosopher:wght@400;700&display=swap");
+
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: luxury --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "luxury";
+  default: true;
+  color-scheme: light;
+
+  /* BASE */
+  --color-base-100: #fff4e6;
+  --color-base-200: #f8f3e8;
+  --color-base-300: #e8ddc8;
+  --color-base-content: #171717;
+
+  /* BRAND */
+  --color-primary: #c9a227;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #6b6255;
+  --color-secondary-content: #ffffff;
+
+  --color-accent: #a98218;
+  --color-accent-content: #ffffff;
+
+  /* NEUTRAL */
+  --color-neutral: #171717;
+  --color-neutral-content: #ffffff;
+
+  /* STATUS */
+  --color-info: #6b7280;
+  --color-success: #5f7a61;
+  --color-warning: #a98218;
+  --color-error: #a65d5d;
+}
+
+@theme {
+  --font-sans: "Manrope", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+}
+
+:root {
+  font-family: var(--font-sans);
+  --ivory: #F7F3EA;
+  --sand: #EAE1D2;
+
+  --navy: #111A30;
+  --midnight: #080F24;
+
+  --gold: #B89A5A;
+  --gold-soft: #C8AF78;
+
+  --text: #151515;
+  --muted: #777268;
+
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-base-100);
+  color: var(--color-base-content);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}

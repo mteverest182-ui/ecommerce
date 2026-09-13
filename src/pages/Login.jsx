@@ -4,13 +4,11 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Authentication akan dihubungkan ke backend nanti.
   };
 
   return (
     <main className="min-h-auto bg-base-100 px-6 py-20 sm:px-10 lg:px-16">
-      <div className="mx-auto grid max-h-[50vh] max-w-6xl overflow-hidden lg:grid-cols-2">
-        {/* Image */}
+      <div className="mx-auto grid max-h-[54vh] max-w-6xl overflow-hidden lg:grid-cols-2">
         <div className="relative hidden max-h-[48vh] overflow-hidden lg:block">
           <img
             src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1400&q=85"
@@ -24,7 +22,6 @@ const Login = () => {
             <p className="mb-2 text-[9px] uppercase tracking-[0.35em]">
               The Collection
             </p>
-
             <h2 className="font-serif text-4xl leading-[0.95]">
               Refined pieces.
               <br />
@@ -33,11 +30,9 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Form */}
         <div className="flex min-h-[50vh] items-center justify-center bg-base-100 px-6 py-10 sm:px-10 lg:px-12 xl:px-16">
           <div className="w-full max-w-sm">
 
-            {/* Heading */}
             <div className="mb-7">
               <p className="mb-2 text-[9px] uppercase tracking-[0.3em] text-base-content/45">
                 Welcome Back
@@ -52,10 +47,7 @@ const Login = () => {
                 shopping journey.
               </p>
             </div>
-
-            {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Email */}
               <div>
                 <label
                   htmlFor="email"
@@ -67,7 +59,6 @@ const Login = () => {
                 <input
                   id="email"
                   name="email"
-                  type="email"
                   autoComplete="email"
                   placeholder="you@example.com"
                   className="
@@ -86,8 +77,6 @@ const Login = () => {
                   "
                 />
               </div>
-
-              {/* Password */}
               <div>
                 <div className="mb-1.5 flex items-center justify-between">
                   <label
@@ -129,8 +118,7 @@ const Login = () => {
                 />
               </div>
 
-              {/* Submit */}
-              <Link  to="/shop">
+              <div>
                 <button
                 type="submit"
                 className="
@@ -149,30 +137,27 @@ const Login = () => {
               >
                 Login
                 </button>
-              </Link>
+              </div>
             </form>
 
-            {/* Register */}
             <div className="mt-6 border-t border-base-content/10 pt-5 text-center">
               <p className="text-[11px] text-base-content/50">
                 Don't have an account?
               </p>
 
-              <Link
-                to="/register"
+              <div
                 className="mb-1.5 inline-block text-[9px] uppercase tracking-[0.2em] transition-colors hover:text-primary"
               >
                 Create an account
-              </Link>
+              </div>
             </div>
 
             <div className="mt-5 text-center">
-              <Link
-                to="/"
+              <div
                 className="text-[8px] uppercase tracking-[0.25em] text-base-content/35 transition-colors hover:text-base-content"
               >
                 Back to shop
-              </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -9,7 +9,6 @@ const CollectionCard = ({ image, title, href = "/collections" }) => {
         block
       "
     >
-      {/* IMAGE */}
       <div
         className="
           relative
@@ -34,7 +33,6 @@ const CollectionCard = ({ image, title, href = "/collections" }) => {
         />
       </div>
 
-      {/* TEXT */}
       <div
         className="
           px-1

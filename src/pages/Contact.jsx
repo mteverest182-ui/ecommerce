@@ -19,9 +19,6 @@ const Contact = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Connect contact API here
-    console.log("Contact form:", form);
-
     setForm({
       name: "",
       email: "",
@@ -31,7 +28,6 @@ const Contact = () => {
 
   return (
     <main className="bg-base-100">
-      {/* HERO */}
       <section className="border-b border-base-content/10">
         <div
           className="
@@ -92,7 +88,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* CONTACT CONTENT */}
       <section className="py-16 md:py-24 lg:py-28">
         <div
           className="
@@ -109,7 +104,6 @@ const Contact = () => {
             lg:gap-24
           "
         >
-          {/* INFORMATION */}
           <div>
             <p
               className="
@@ -150,7 +144,6 @@ const Contact = () => {
               requests.
             </p>
 
-            {/* CONTACT DETAILS */}
             <div className="mt-10 space-y-7">
               <div>
                 <p className="text-[9px] uppercase tracking-[0.25em] text-base-content/40">
@@ -186,9 +179,7 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* FORM */}
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* NAME */}
             <div>
               <label
                 htmlFor="name"
@@ -224,7 +215,6 @@ const Contact = () => {
               />
             </div>
 
-            {/* EMAIL */}
             <div>
               <label
                 htmlFor="email"
@@ -260,7 +250,6 @@ const Contact = () => {
               />
             </div>
 
-            {/* MESSAGE */}
             <div>
               <label
                 htmlFor="message"
@@ -298,7 +287,6 @@ const Contact = () => {
               />
             </div>
 
-            {/* SUBMIT */}
             <button
               type="submit"
               className="
@@ -320,7 +308,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* SUPPORT STRIP */}
       <section className="border-y border-base-content/10">
         <div
           className="

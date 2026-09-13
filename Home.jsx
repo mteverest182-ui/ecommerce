@@ -19,17 +19,11 @@ const Home = () => {
     error,
   } = useHomeProducts();
 
-  // =========================
-  // BANNER STATE
-  // ========================= 
 
   const [banners, setBanners] = useState([]);
   const [loadingBanners, setLoadingBanners] = useState(true);
   const [bannerError, setBannerError] = useState("");
 
-  // =========================
-  // FETCH BANNERS
-  // =========================
 
   useEffect(() => {
   const fetchBanners = async () => {
@@ -40,9 +34,6 @@ const Home = () => {
       const response = await getBanners({
         status: "ACTIVE",
       });
-
-      console.log("BANNER RESPONSE:", response);
-
       const bannerData = Array.isArray(response)
         ? response
         : Array.isArray(response?.data)
@@ -51,44 +42,8 @@ const Home = () => {
             ? response.data.data
             : [];
 
-      console.log("BANNER DATA:", bannerData);
-
-      console.log(
-        "BANNER SLOTS:",
-        bannerData.map((banner) => ({
-          id: banner.id,
-          title: banner.title,
-          slotKey: banner.slotKey,
-          status: banner.status,
-          images: banner.images,
-        })),
-      );
-
       setBanners(bannerData);
 
-      // DEBUG — gunakan bannerData, bukan banners
-      console.log(
-        "ALL BANNERS:",
-        bannerData,
-      );
-
-      console.log(
-        "MOBILE FEATURED 1:",
-        bannerData.find(
-          (banner) =>
-            banner.slotKey ===
-            "MOBILE_FEATURED_1",
-        ),
-      );
-
-      console.log(
-        "MOBILE FEATURED 2:",
-        bannerData.find(
-          (banner) =>
-            banner.slotKey ===
-            "MOBILE_FEATURED_2",
-        ),
-      );
     } catch (error) {
       console.error(
         "Failed to fetch banners:",
@@ -108,18 +63,12 @@ const Home = () => {
   fetchBanners();
 }, []);
 
-  // =========================
-  // FIND HERO
-  // =========================
 
-  const heroBanner = banners.find(
+const heroBanner = banners.find(
     (banner) =>
       banner.slotKey === "HERO" &&
       banner.status === "ACTIVE",
   );
-
-  console.log("HERO BANNER:", heroBanner);
-  console.log("HERO IMAGES:", heroBanner?.images);
 
 const mobileFeatured1 =
   banners.find(
@@ -137,10 +86,6 @@ const mobileFeatured2 =
 
   return (
     <main className="bg-base-100">
-
-      {/* =========================
-          HERO
-      ========================= */}
 
       {loadingBanners ? (
         <section className="min-h-[70vh] animate-pulse bg-base-200" />
@@ -162,24 +107,11 @@ const mobileFeatured2 =
         </section>
       )}
 
-      {/* =========================
-          COLLECTION
-      ========================= */}
-
       <CollectionSection banners={banners} />
 
-      {/* =========================
-          EDITORIAL
-      ========================= */}
       
 
       <EditorialModel mobileFeatured1={mobileFeatured1} mobileFeatured2={mobileFeatured2} />
-
-      
-
-      {/* =========================
-          PRODUCTS
-      ========================= */}
 
       {loading && (
         <section className="py-20">
@@ -221,15 +153,7 @@ const mobileFeatured2 =
         </>
       )}
 
-      {/* =========================
-          BRAND
-      ========================= */}
-
       <BrandStatement />
-
-      {/* =========================
-          MARKET
-      ========================= */}
 
       <MarketCard banners={banners} />
 

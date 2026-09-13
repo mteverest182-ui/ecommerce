@@ -6,18 +6,25 @@
   themes: luxury --default;
 }
 
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
 @plugin "daisyui/theme" {
   name: "luxury";
   default: true;
   color-scheme: light;
-
-  /* BASE */
+  
   --color-base-100: #fff4e6;
   --color-base-200: #f8f3e8;
   --color-base-300: #e8ddc8;
   --color-base-content: #171717;
-
-  /* BRAND */
+  
   --color-primary: #c9a227;
   --color-primary-content: #ffffff;
 
@@ -26,12 +33,10 @@
 
   --color-accent: #a98218;
   --color-accent-content: #ffffff;
-
-  /* NEUTRAL */
+  
   --color-neutral: #171717;
   --color-neutral-content: #ffffff;
-
-  /* STATUS */
+  
   --color-info: #6b7280;
   --color-success: #5f7a61;
   --color-warning: #a98218;

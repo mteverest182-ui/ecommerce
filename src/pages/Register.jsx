@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Registration akan dihubungkan ke backend nanti.
   };
 
   return (
     <main className="min-h-auto inset-0 bg-base-100 px-6 py-10 sm:px-10 lg:px-16 mt-11">
       <div className="mx-auto grid max-h-[60vh] max-w-6xl overflow-hidden lg:grid-cols-2">
-        {/* Image */}
         <div className="relative hidden max-h-[60vh] overflow-hidden lg:block">
           <img
             src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1400&q=85"
@@ -33,11 +30,9 @@ const Register = () => {
           </div>
         </div>
 
-        {/* Form */}
         <div className="flex min-h-[50vh] items-center justify-center bg-base-100 px-6 py-8 sm:px-10 lg:px-12 xl:px-16">
           <div className="w-full max-w-sm">
 
-            {/* Heading */}
             <div className="mb-6">
               <p className="mb-2 text-[9px] uppercase tracking-[0.3em] text-base-content/45">
                 Join Us
@@ -53,9 +48,7 @@ const Register = () => {
               </p>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Name */}
               <div>
                 <label
                   htmlFor="name"
@@ -67,7 +60,6 @@ const Register = () => {
                 <input
                   id="name"
                   name="name"
-                  type="text"
                   autoComplete="name"
                   placeholder="Your name"
                   className="
@@ -84,11 +76,9 @@ const Register = () => {
                     placeholder:text-base-content/30
                     focus:border-primary
                   "
-                  required
                 />
               </div>
 
-              {/* Email */}
               <div>
                 <label
                   htmlFor="email"
@@ -100,7 +90,6 @@ const Register = () => {
                 <input
                   id="email"
                   name="email"
-                  type="email"
                   autoComplete="email"
                   placeholder="you@example.com"
                   className="
@@ -117,11 +106,9 @@ const Register = () => {
                     placeholder:text-base-content/30
                     focus:border-primary
                   "
-                  required
                 />
               </div>
 
-              {/* Password */}
               <div>
                 <label
                   htmlFor="password"
@@ -133,7 +120,6 @@ const Register = () => {
                 <input
                   id="password"
                   name="password"
-                  type="password"
                   autoComplete="new-password"
                   placeholder="••••••••"
                   className="
@@ -150,11 +136,9 @@ const Register = () => {
                     placeholder:text-base-content/30
                     focus:border-primary
                   "
-                  required
                 />
               </div>
 
-              {/* Confirm Password */}
               <div>
                 <label
                   htmlFor="confirmPassword"
@@ -166,7 +150,6 @@ const Register = () => {
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
-                  type="password"
                   autoComplete="new-password"
                   placeholder="••••••••"
                   className="
@@ -183,14 +166,11 @@ const Register = () => {
                     placeholder:text-base-content/30
                     focus:border-primary
                   "
-                  required
                 />
               </div>
 
-              {/* Submit */}
-              <Link  to="/shop">
+              <div>
               <button
-                type="submit"
                 className="
                   mt-2
                   h-10
@@ -207,21 +187,20 @@ const Register = () => {
               >
                 Create Account
               </button>
-              </Link>
+              </div>
             </form>
 
-            {/* Login */}
             <div className="mt-5 border-t border-base-content/10 pt-4 text-center">
               <p className="text-[11px] text-base-content/50">
                 Already have an account?
               </p>
 
-              <Link
+              <div
                 to="/login"
                 className="mt-1.5 inline-block text-[9px] uppercase tracking-[0.2em] transition-colors hover:text-primary"
               >
                 Sign in
-              </Link>
+              </div>
             </div>
           </div>
         </div>

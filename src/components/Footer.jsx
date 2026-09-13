@@ -39,7 +39,6 @@ const Footer = () => {
   return (
     <footer className="border-t border-base-content/10 bg-base-100">
       <div className="mx-auto w-[90%] md:w-[95%] lg:w-[80%]">
-        {/* MAIN FOOTER */}
         <div
           className="
             grid
@@ -49,7 +48,6 @@ const Footer = () => {
             md:grid-cols-4 md:gap-8 md:py-16
           "
         >
-          {/* BRAND */}
           <div className="md:col-span-1">
             <Link
               to="/"
@@ -82,9 +80,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* MOBILE LINKS */}
           <div className="grid grid-cols-2 gap-8 md:contents">
-            {/* SHOP */}
             <div>
               <p
                 className="
@@ -139,7 +135,6 @@ const Footer = () => {
               </nav>
             </div>
 
-            {/* HELP */}
             <div>
               <p
                 className="
@@ -207,7 +202,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* FOLLOW */}
           <div>
             <p
               className="
@@ -256,7 +250,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* BOTTOM */}
         <div
           className="
             flex
@@ -281,7 +274,7 @@ const Footer = () => {
               sm:tracking-[0.2em]
             "
           >
-            © {new Date().getFullYear()} BELLANOCHE. All rights reserved.
+            © 2026 BELLANOCHE. All rights reserved.
           </p>
 
           <div className="flex gap-5">

@@ -12,15 +12,8 @@ const BrandStatement = ({
 
     if (!email.trim()) return;
 
-    // Connect newsletter API here
-    console.log("Newsletter signup:", email);
-
     setEmail("");
   };
-
-  // =====================================================
-  // MOBILE STATE
-  // =====================================================
 
   const mobileContainer = `
     flex
@@ -90,10 +83,6 @@ const BrandStatement = ({
     transition-opacity
     hover:opacity-50
   `;
-
-  // =====================================================
-  // DESKTOP STATE
-  // =====================================================
 
   const desktopContainer = `
     mx-auto
@@ -175,13 +164,12 @@ const BrandStatement = ({
         lg:w-[80%]
       "
     >
-      {/* =================================================
-          MOBILE
-      ================================================== */}
+      
+    
 
       <div className="lg:hidden">
         <div className={mobileContainer}>
-          {/* CONTENT */}
+          
           <div>
             <p className={mobileEyebrow}>{eyebrow}</p>
 
@@ -190,15 +178,13 @@ const BrandStatement = ({
             <p className={mobileDescription}>{description}</p>
           </div>
 
-          {/* FORM */}
+          
           <form onSubmit={handleSubmit} className={mobileForm}>
             <input
-              type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="Your email address"
               aria-label="Email address"
-              required
               className={mobileInput}
             />
 
@@ -209,13 +195,12 @@ const BrandStatement = ({
         </div>
       </div>
 
-      {/* =================================================
-          DESKTOP
-      ================================================== */}
+      
+    
 
       <div className="hidden lg:block">
         <div className={desktopContainer}>
-          {/* CONTENT */}
+          
           <div className={desktopContent}>
             <p className={desktopEyebrow}>{eyebrow}</p>
 
@@ -224,15 +209,13 @@ const BrandStatement = ({
             <p className={desktopDescription}>{description}</p>
           </div>
 
-          {/* FORM */}
+          
           <form onSubmit={handleSubmit} className={desktopForm}>
             <input
-              type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="Your email address"
               aria-label="Email address"
-              required
               className={desktopInput}
             />
 

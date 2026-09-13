@@ -97,7 +97,7 @@ const Collection = () => {
 
   return (
     <main className="bg-base-100">
-      {/* Header */}
+      
       <section className="px-5 pb-14 pt-16 sm:px-6 md:pb-20 md:pt-24 lg:px-8 lg:pb-24 lg:pt-28">
         <div className="mx-auto max-w-7xl">
           <p className="text-[10px] uppercase tracking-[0.25em] text-base-content/50">
@@ -116,7 +116,7 @@ const Collection = () => {
         </div>
       </section>
 
-      {/* Collection List */}
+      
       <section className="px-5 pb-20 sm:px-6 lg:px-8 lg:pb-28">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex items-center justify-between border-b border-base-300 pb-4">
@@ -193,7 +193,7 @@ const Collection = () => {
         </div>
       </section>
 
-      {/* Bottom CTA */}
+      
       <section className="border-t border-base-300 px-5 py-20 sm:px-6 md:py-28 lg:px-8">
         <div className="mx-auto max-w-7xl text-center">
           <p className="text-[10px] uppercase tracking-[0.25em] text-base-content/40">

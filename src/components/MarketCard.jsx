@@ -115,7 +115,6 @@ const MarketCard = ({ banners = [] }) => {
                 md:shrink
               "
             >
-              {/* IMAGE */}
               <div
                 className="
                   relative
@@ -142,7 +141,6 @@ const MarketCard = ({ banners = [] }) => {
                   "
                 />
 
-                {/* OVERLAY */}
                 <div
                   className="
                     absolute
@@ -156,7 +154,6 @@ const MarketCard = ({ banners = [] }) => {
                 />
               </div>
 
-              {/* LABEL */}
               <div
                 className="
                   mt-3

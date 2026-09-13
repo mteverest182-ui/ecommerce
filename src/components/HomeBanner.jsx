@@ -26,12 +26,10 @@ const HomeBanner = ({
             let selectedImage;
 
             if (width < 768) {
-                // Mobile
                 selectedImage =
                     getImage("MOBILE") ||
                     getImage("DESKTOP");
             } else {
-                // Desktop
                 selectedImage =
                     getImage("DESKTOP") ||
                     getImage("MOBILE");

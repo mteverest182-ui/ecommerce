@@ -13,7 +13,7 @@ const ProductGrid = ({ products = [] }) => {
     <div
       className="
         flex
-        gap-1x1
+        gap-1xl
         overflow-x-auto
         overscroll-x-contain
         pb-2

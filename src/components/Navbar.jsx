@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Menu,
   Search,
@@ -9,63 +9,123 @@ import {
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
-  // =========================
-  // CLOSE MOBILE MENU
-  // =========================
+  const [mobileOpen, setMobileOpen] =
+    useState(false);
+
+  const [searchOpen, setSearchOpen] =
+    useState(false);
+
+  const [search, setSearch] =
+    useState("");
+
+  const [scrolled, setScrolled] =
+    useState(false);
+
+
   const closeMobileMenu = () => {
     setMobileOpen(false);
   };
 
-  // =========================
-  // HANDLE SCROLL
-  // =========================
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-    };
 
-    // Set initial state
-    handleScroll();
+  const closeSearch = () => {
+    setSearchOpen(false);
+  };
 
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const openSearch = () => {
+    setSearchOpen(true);
+  };
 
-  // =========================
-  // LOCK BODY SCROLL
-  // =========================
-  useEffect(() => {
-    if (!mobileOpen) {
-      document.body.style.overflow = "";
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+
+    const keyword =
+      search.trim();
+
+
+    if (!keyword) {
+      navigate("/shop");
+
+      setSearchOpen(false);
+
       return;
     }
 
-    document.body.style.overflow = "hidden";
+
+    navigate(
+      `/shop?search=${encodeURIComponent(
+        keyword,
+      )}`,
+    );
+
+    setSearchOpen(false);
+    setMobileOpen(false);
+  };
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(
+        window.scrollY > 40,
+      );
+    };
+
+    handleScroll();
+
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      {
+        passive: true,
+      },
+    );
 
     return () => {
-      document.body.style.overflow = "";
+      window.removeEventListener(
+        "scroll",
+        handleScroll,
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) {
+      document.body.style.overflow =
+        "";
+
+      return;
+    }
+
+    document.body.style.overflow =
+      "hidden";
+
+    return () => {
+      document.body.style.overflow =
+        "";
     };
   }, [mobileOpen]);
 
-  // =========================
-  // ESCAPE TO CLOSE MENU
-  // =========================
+
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        closeMobileMenu();
+      if (
+        event.key !== "Escape"
+      ) {
+        return;
       }
+
+
+      closeSearch();
+      closeMobileMenu();
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener(
+      "keydown",
+      handleKeyDown,
+    );
 
     return () => {
       window.removeEventListener(
@@ -75,11 +135,10 @@ const Navbar = () => {
     };
   }, []);
 
-  // =========================
-  // NAVBAR STATE
-  // =========================
   const transparent =
-    !scrolled && !mobileOpen;
+    !scrolled &&
+    !mobileOpen &&
+    !searchOpen;
 
   return (
     <header
@@ -111,9 +170,6 @@ const Navbar = () => {
         }
       `}
     >
-      {/* =====================================================
-          HEADER
-      ===================================================== */}
 
       <div
         className="
@@ -128,14 +184,14 @@ const Navbar = () => {
           md:w-[80%]
         "
       >
-        {/* ===================================================
-            MOBILE MENU BUTTON
-        =================================================== */}
+
 
         <button
           type="button"
           onClick={() =>
-            setMobileOpen((prev) => !prev)
+            setMobileOpen(
+              (prev) => !prev,
+            )
           }
           className="
             flex
@@ -143,6 +199,7 @@ const Navbar = () => {
             w-11
             items-center
             justify-start
+
             lg:hidden
           "
           aria-label={
@@ -150,7 +207,9 @@ const Navbar = () => {
               ? "Close menu"
               : "Open menu"
           }
-          aria-expanded={mobileOpen}
+          aria-expanded={
+            mobileOpen
+          }
         >
           {mobileOpen ? (
             <X
@@ -171,39 +230,35 @@ const Navbar = () => {
           )}
         </button>
 
-        {/* ===================================================
-            LOGO
-        =================================================== */}
+        <Link
+          to="/"
+          onClick={() => {
+            closeMobileMenu();
+            closeSearch();
+          }}
+          className="
+            absolute
+            left-1/2
+            -translate-x-1/2
 
-          <Link
-            to="/"
-            onClick={closeMobileMenu}
-            className="
-              absolute
-              left-1/2
-              -translate-x-1/2
+            font-[Philosopher]
+            text-base
+            font-medium
+            tracking-[0.24em]
 
-              font-[Philosopher]
-              text-base
-              font-medium
-              tracking-[0.24em]
+            transition-colors
+            duration-150
+            ease-out
 
-              transition-colors
-              duration-150
-              ease-out
+            md:text-lg
 
-              md:text-lg
+            lg:static
+            lg:translate-x-0
+          "
+        >
+          BELLANOCHE
+        </Link>
 
-              lg:static
-              lg:translate-x-0
-            "
-          >
-            BELLANOCHE
-          </Link>
-
-        {/* ===================================================
-            DESKTOP NAVIGATION
-        =================================================== */}
 
         <nav
           className="
@@ -211,10 +266,11 @@ const Navbar = () => {
             hidden
             items-center
             gap-8
+
             lg:flex
           "
         >
-          {/* SHOP */}
+
           <Link
             to="/shop"
             className="
@@ -234,10 +290,13 @@ const Navbar = () => {
                 absolute
                 bottom-0
                 left-0
+
                 h-px
                 w-full
+
                 origin-left
                 scale-x-0
+
                 bg-current
 
                 transition-transform
@@ -249,7 +308,7 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* COLLECTION */}
+
           <Link
             to="/collection"
             className="
@@ -269,10 +328,13 @@ const Navbar = () => {
                 absolute
                 bottom-0
                 left-0
+
                 h-px
                 w-full
+
                 origin-left
                 scale-x-0
+
                 bg-current
 
                 transition-transform
@@ -284,7 +346,7 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* ABOUT */}
+
           <Link
             to="/about"
             className="
@@ -304,10 +366,13 @@ const Navbar = () => {
                 absolute
                 bottom-0
                 left-0
+
                 h-px
                 w-full
+
                 origin-left
                 scale-x-0
+
                 bg-current
 
                 transition-transform
@@ -320,71 +385,185 @@ const Navbar = () => {
           </Link>
         </nav>
 
-        {/* ===================================================
-            ACTIONS
-        =================================================== */}
+        <div
+          className="
+            flex
+            items-center
+          "
+        >
 
-        <div className="flex items-center">
-          {/* SEARCH */}
-          <button
-    type="button"
-    className="
-      hidden
-      h-11
-      w-11
-      items-center
-      justify-center
-      lg:flex
-    "
-    aria-label="Search"
-  >
-    <Search
-      className="h-[18px] w-[18px]"
-      strokeWidth={1.4}
-    />
-  </button>
+      {searchOpen ? (
+        <form
+          onSubmit={handleSearch}
+          className="
+            hidden
+            items-center
+            lg:flex
+          "
+        >
+          <div
+            className="
+              flex
+              h-10
+              w-52
+              items-center
+              gap-2
 
-  {/* ACCOUNT */}
-  <Link
-    to="/login"
-    className="
-      flex
-      h-11
-      w-11
-      items-center
-      justify-center
-    "
-    aria-label="Account"
-  >
-    <User
-      className="h-[18px] w-[18px]"
-      strokeWidth={1.4}
-    />
-  </Link>
+              border-b
+              border-current/30
 
-  {/* SHOPPING BAG */}
-  <Link
-    to="/shop"
-    className="
-      flex
-      h-11
-      w-11
-      items-center
-      justify-center
-    "
-    aria-label="Shopping bag"
-  >
-    <ShoppingBag
-      className="h-[18px] w-[18px]"
-      strokeWidth={1.4}
-    />
-  </Link>
+              transition-all
+              duration-300
+
+              xl:w-64
+            "
+          >
+            <Search
+              className="
+                h-[17px]
+                w-[17px]
+                shrink-0
+                opacity-60
+              "
+              strokeWidth={1.4}
+            />
+
+            <input
+              autoFocus
+              type="text"
+              value={search}
+              onChange={(event) =>
+                setSearch(event.target.value)
+              }
+              placeholder="Search product..."
+              className="
+                min-w-0
+                flex-1
+
+                bg-transparent
+
+                text-xs
+                tracking-[0.08em]
+
+                border-none
+                outline-none
+
+                focus:border-none
+                focus:outline-none
+                focus:ring-0
+
+                placeholder:text-current/40
+              "
+              aria-label="Search product"
+            />
+
+            <button
+              type="button"
+              onClick={() => {
+                setSearch("");
+                setSearchOpen(false);
+              }}
+              className="
+                flex
+                h-8
+                w-8
+                shrink-0
+                items-center
+                justify-center
+
+                opacity-50
+
+                transition-opacity
+                hover:opacity-100
+              "
+              aria-label="Close search"
+            >
+              <X
+                className="
+                  h-[16px]
+                  w-[16px]
+                "
+                strokeWidth={1.4}
+              />
+            </button>
+          </div>
+        </form>
+      ) : (
+
+            <button
+              type="button"
+              onClick={openSearch}
+              className="
+                hidden
+                h-11
+                w-11
+                items-center
+                justify-center
+
+                lg:flex
+              "
+              aria-label="Search"
+            >
+              <Search
+                className="
+                  h-[18px]
+                  w-[18px]
+                "
+                strokeWidth={1.4}
+              />
+            </button>
+          )}
+
+
+          <Link
+            to="/login"
+            onClick={() => {
+              closeSearch();
+              closeMobileMenu();
+            }}
+            className="
+              flex
+              h-11
+              w-11
+              items-center
+              justify-center
+            "
+            aria-label="Account"
+          >
+            <User
+              className="
+                h-[18px]
+                w-[18px]
+              "
+              strokeWidth={1.4}
+            />
+          </Link>
+
+          <Link
+            to="/shop"
+            onClick={() => {
+              closeSearch();
+              closeMobileMenu();
+            }}
+            className="
+              flex
+              h-11
+              w-11
+              items-center
+              justify-center
+            "
+            aria-label="Shopping bag"
+          >
+            <ShoppingBag
+              className="
+                h-[18px]
+                w-[18px]
+              "
+              strokeWidth={1.4}
+            />
+          </Link>
         </div>
       </div>
-
-      {/* =====================================================
-          MOBILE MENU
-      ===================================================== */}
 
       <div
         className={`
@@ -420,16 +599,20 @@ const Navbar = () => {
           }
         `}
       >
-        <div className="mx-auto w-[90%]">
-          {/* ===============================================
-              PRIMARY NAV
-          =============================================== */}
+        <div
+          className="
+            mx-auto
+            w-[90%]
+          "
+        >
 
           <nav className="py-3">
-            {/* SHOP */}
+
             <Link
               to="/shop"
-              onClick={closeMobileMenu}
+              onClick={() =>
+                closeMobileMenu()
+              }
               className="
                 group
                 relative
@@ -452,10 +635,13 @@ const Navbar = () => {
                   absolute
                   bottom-0
                   left-0
+
                   h-px
                   w-full
+
                   origin-left
                   scale-x-0
+
                   bg-base-content
 
                   transition-transform
@@ -467,10 +653,12 @@ const Navbar = () => {
               />
             </Link>
 
-            {/* COLLECTION */}
+
             <Link
               to="/collection"
-              onClick={closeMobileMenu}
+              onClick={() =>
+                closeMobileMenu()
+              }
               className="
                 group
                 relative
@@ -493,10 +681,13 @@ const Navbar = () => {
                   absolute
                   bottom-0
                   left-0
+
                   h-px
                   w-full
+
                   origin-left
                   scale-x-0
+
                   bg-base-content
 
                   transition-transform
@@ -508,14 +699,17 @@ const Navbar = () => {
               />
             </Link>
 
-            {/* ABOUT */}
+
             <Link
               to="/about"
-              onClick={closeMobileMenu}
+              onClick={() =>
+                closeMobileMenu()
+              }
               className="
                 group
                 relative
                 block
+
                 py-5
 
                 text-sm
@@ -530,10 +724,13 @@ const Navbar = () => {
                   absolute
                   bottom-0
                   left-0
+
                   h-px
                   w-full
+
                   origin-left
                   scale-x-0
+
                   bg-base-content
 
                   transition-transform
@@ -546,72 +743,111 @@ const Navbar = () => {
             </Link>
           </nav>
 
-          {/* ===============================================
-              UTILITY
-          =============================================== */}
 
           <div
             className="
               border-t
               border-base-content/10
+
               py-5
             "
           >
-            {/* SEARCH */}
-            <button
-              type="button"
+            <form
+              onSubmit={handleSearch}
               className="
                 flex
-                w-full
                 items-center
                 gap-3
-                py-3
-
-                text-[10px]
-                uppercase
-                tracking-[0.2em]
-
-                text-base-content/60
-
-                transition-transform
-                duration-300
-
-                hover:text-base-content
               "
             >
               <Search
-                className="h-4 w-4"
+                className="
+                  h-4
+                  w-4
+                  shrink-0
+                  text-base-content/50
+                "
                 strokeWidth={1.4}
               />
 
-              Search
-            </button>
+              <input
+                type="search"
+                value={search}
+                onChange={(event) =>
+                  setSearch(
+                    event.target.value,
+                  )
+                }
+                placeholder="Search product..."
+                className="
+                  min-w-0
+                  flex-1
 
-            {/* ACCOUNT */}
-            <Link
-              to="/login"
-              className="
-                hidden
-                h-11
-                w-11
-                items-center
-                justify-center
-                lg:flex
-              "
-              aria-label="Account"
-            >
-              <User
-                className="h-[18px] w-[18px]"
-                strokeWidth={1.4}
+                  bg-transparent
+
+                  py-3
+
+                  text-sm
+
+                  outline-none
+
+                  focus:putline
+
+                  placeholder:text-base-content/35
+                "
+                aria-label="Search product"
               />
-            </Link>
+
+
+              {search && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    setSearch("")
+                  }
+                  className="
+                    flex
+                    h-8
+                    w-8
+                    items-center
+                    justify-center
+
+                    text-base-content/50
+
+                    hover:text-base-content
+                  "
+                  aria-label="Clear search"
+                >
+                  <X
+                    className="
+                      h-4
+                      w-4
+                    "
+                    strokeWidth={1.4}
+                  />
+                </button>
+              )}
+
+              <button
+                type="submit"
+                className="
+                  text-[9px]
+                  uppercase
+                  tracking-[0.2em]
+
+                  text-base-content/50
+
+                  transition-colors
+
+                  hover:text-base-content
+                "
+              >
+                Search
+              </button>
+            </form>
           </div>
         </div>
       </div>
-
-      {/* =====================================================
-          MOBILE BACKDROP
-      ===================================================== */}
 
       <button
         type="button"
@@ -621,11 +857,12 @@ const Navbar = () => {
           fixed
           inset-0
           top-20
+
           z-[-1]
 
           bg-black/10
 
-          transition-transform
+          transition-opacity
           duration-300
 
           lg:hidden

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 const About = () => {
   return (
     <main className="bg-base-100">
-      {/* HERO */}
       <section className="border-b border-base-content/10">
         <div
           className="
@@ -70,7 +69,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* STORY */}
       <section className="py-20 md:py-24 lg:py-32">
         <div
           className="
@@ -87,7 +85,6 @@ const About = () => {
             lg:gap-24
           "
         >
-          {/* IMAGE */}
           <div className="overflow-hidden bg-base-200">
             <div className="aspect-4/5">
               <img
@@ -98,7 +95,6 @@ const About = () => {
             </div>
           </div>
 
-          {/* CONTENT */}
           <div className="flex flex-col justify-center">
             <p
               className="
@@ -161,7 +157,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* STATEMENT */}
       <section className="bg-[#211E1A] text-[#F3EEE4]">
         <div
           className="

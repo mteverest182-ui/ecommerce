@@ -40,11 +40,6 @@ const EditorialModel = ({
       (editorial) => editorial.image,
     );
 
-  console.log(
-    "EDITORIAL RENDER DATA:",
-    editorials,
-  );
-
   if (!editorials.length) {
     return null;
   }

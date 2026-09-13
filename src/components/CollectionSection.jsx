@@ -48,7 +48,6 @@ const CollectionSection = ({ banners = [] }) => {
           lg:px-10
         "
       >
-        {/* HEADER */}
         <div
           className="
             mb-8
@@ -86,7 +85,6 @@ const CollectionSection = ({ banners = [] }) => {
           </h2>
         </div>
 
-        {/* COLLECTION CARDS */}
         <div
           className="
             grid
@@ -115,7 +113,6 @@ const CollectionSection = ({ banners = [] }) => {
                 to={`/shop?gender=${gender}`}
                 className="group block"
               >
-                {/* IMAGE */}
                 <div
                   className="
                     relative
@@ -153,7 +150,6 @@ const CollectionSection = ({ banners = [] }) => {
                   </picture>
                 </div>
 
-                {/* TEXT */}
                 <div
                   className="
                     px-1

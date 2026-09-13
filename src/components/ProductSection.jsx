@@ -10,7 +10,6 @@ const ProductSection = ({
 }) => {
   return (
     <section className="bg-base-100 py-10 md:py-10 lg:py-10">
-      {/* HEADER */}
       <div className="mx-3 w-[95%] md:w-[80%] md:mx-auto lg:w-[80%] lg:mx-auto">
         <div className="mb-5 flex items-end justify-between gap-6 md:mb-5">
           <div>
@@ -69,7 +68,6 @@ const ProductSection = ({
         </div>
       </div>
 
-      {/* PRODUCT RAIL */}
       <div
         className="
           w-screen

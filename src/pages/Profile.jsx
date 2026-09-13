@@ -9,10 +9,7 @@ const Profile = () => {
     <main className="min-h-screen bg-base-100 text-base-content">
       <section className="mx-auto flex min-h-screen w-[92%] items-center py-24 md:w-[80%] md:py-28">
         <div className="grid w-full grid-cols-1 overflow-hidden md:grid-cols-2">
-
-          {/* =========================
-              IMAGE
-          ========================= */}
+              
           <div className="relative hidden min-h-[620px] overflow-hidden bg-base-200 md:block">
             <img
               src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=85"
@@ -32,14 +29,10 @@ const Profile = () => {
               </p>
             </div>
           </div>
-
-          {/* =========================
-              FORM
-          ========================= */}
+              
           <div className="flex min-h-[620px] items-center justify-center border border-base-content/10 px-7 py-12 md:px-12 lg:px-16">
             <div className="w-full max-w-[390px]">
 
-              {/* HEADER */}
               <div>
                 <p className="text-[9px] uppercase tracking-[0.3em] text-primary">
                   {isLogin ? "Welcome Back" : "Bellanoche"}
@@ -56,14 +49,12 @@ const Profile = () => {
                 </p>
               </div>
 
-              {/* FORM */}
               <form
                 className="mt-10"
                 onSubmit={(event) => {
                   event.preventDefault();
                 }}
               >
-                {/* NAME */}
                 {!isLogin && (
                   <div>
                     <label
@@ -95,7 +86,6 @@ const Profile = () => {
                   </div>
                 )}
 
-                {/* EMAIL */}
                 <div className={!isLogin ? "mt-6" : ""}>
                   <label
                     htmlFor="email"
@@ -125,7 +115,6 @@ const Profile = () => {
                   />
                 </div>
 
-                {/* PASSWORD */}
                 <div className="mt-6">
                   <label
                     htmlFor="password"
@@ -155,7 +144,6 @@ const Profile = () => {
                   />
                 </div>
 
-                {/* CONFIRM PASSWORD */}
                 {!isLogin && (
                   <div className="mt-6">
                     <label
@@ -187,7 +175,6 @@ const Profile = () => {
                   </div>
                 )}
 
-                {/* FORGOT PASSWORD */}
                 {isLogin && (
                   <div className="mt-4 text-right">
                     <button
@@ -206,7 +193,6 @@ const Profile = () => {
                   </div>
                 )}
 
-                {/* SUBMIT */}
                 <button
                   type="submit"
                   className="
@@ -226,7 +212,6 @@ const Profile = () => {
                 </button>
               </form>
 
-              {/* SWITCH MODE */}
               <div className="mt-8 border-t border-base-content/10 pt-6 text-center">
                 <p className="text-[9px] uppercase tracking-[0.15em] text-base-content/40">
                   {isLogin

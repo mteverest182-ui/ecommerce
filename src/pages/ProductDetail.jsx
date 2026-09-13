@@ -1,28 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+
 import { getProductById } from "../services/productService";
 import { getWhatsappSetting } from "../api/urlMarket.api";
 
 const ProductDetail = () => {
   const { id } = useParams();
-
   const [product, setProduct] = useState(null);
   const [activeImage, setActiveImage] = useState("");
-
-  // WhatsApp URL dari backend
   const [whatsappUrl, setWhatsappUrl] = useState("");
+  const [orderChannel, setOrderChannel] = useState(null);
   const [whatsappLoading, setWhatsappLoading] = useState(true);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // Size & Quantity
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
-
-  // =========================
-  // GET PRODUCT
-  // =========================
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -42,7 +34,10 @@ const ProductDetail = () => {
         setProduct(data);
         setActiveImage(data?.image || "");
       } catch (error) {
-        console.error("Failed to fetch product:", error);
+        console.error(
+          "Failed to fetch product:",
+          error,
+        );
 
         setError(
           error.message ||
@@ -55,40 +50,44 @@ const ProductDetail = () => {
 
     fetchProduct();
   }, [id]);
-
-  // =========================
-  // GET WHATSAPP SETTING
-  // =========================
   useEffect(() => {
-    const fetchWhatsappSetting = async () => {
+    const fetchOrderSetting = async () => {
       try {
         setWhatsappLoading(true);
 
         const response = await getWhatsappSetting();
 
-        const url = response.data?.whatsappUrl || "";
+        const url =
+          response?.data?.whatsappDestination ||
+          response?.data?.orderUrl ||
+          response?.data?.whatsappUrl ||
+          "";
+
+        const channel =
+          response?.data?.orderChannel || null;
 
         setWhatsappUrl(url);
+        setOrderChannel(channel);
       } catch (error) {
         console.error(
-          "GET WHATSAPP SETTING ERROR:",
+          "GET ORDER SETTING ERROR:",
           error,
         );
 
         setWhatsappUrl("");
+        setOrderChannel(null);
       } finally {
         setWhatsappLoading(false);
       }
     };
 
-    fetchWhatsappSetting();
+    fetchOrderSetting();
   }, []);
 
-  // =========================
-  // PRODUCT IMAGES
-  // =========================
   const images = useMemo(() => {
-    if (!product) return [];
+    if (!product) {
+      return [];
+    }
 
     if (
       Array.isArray(product.images) &&
@@ -103,10 +102,6 @@ const ProductDetail = () => {
 
     return [];
   }, [product]);
-
-  // =========================
-  // PRODUCT PRICING
-  // =========================
   const originalPrice = Number(
     product?.price ?? 0,
   );
@@ -125,18 +120,12 @@ const ProductDetail = () => {
     discount > 0 &&
     finalPrice < originalPrice;
 
-  // =========================
-  // STOCK
-  // =========================
   const stock = Number(
     product?.stock ?? 0,
   );
 
   const isOutOfStock = stock <= 0;
 
-  // =========================
-  // GENDER
-  // =========================
   const gender =
     product?.gender === "MEN"
       ? "Men"
@@ -144,14 +133,9 @@ const ProductDetail = () => {
         ? "Women"
         : product?.gender || "";
 
-  // =========================
-  // TOTAL PRICE
-  // =========================
-  const totalPrice = finalPrice * quantity;
+  const totalPrice =
+    finalPrice * quantity;
 
-  // =========================
-  // QUANTITY
-  // =========================
   const handleDecreaseQuantity = () => {
     setQuantity((current) =>
       Math.max(1, current - 1),
@@ -160,13 +144,13 @@ const ProductDetail = () => {
 
   const handleIncreaseQuantity = () => {
     setQuantity((current) =>
-      Math.min(stock, current + 1),
+      Math.min(
+        stock,
+        current + 1,
+      ),
     );
   };
 
-  // =========================
-  // ADD TO BAG / WHATSAPP
-  // =========================
   const handleAddToBag = () => {
     if (!whatsappUrl) {
       return;
@@ -180,32 +164,42 @@ const ProductDetail = () => {
       return;
     }
 
-    const message = [
-      "Halo, saya ingin memesan:",
-      "",
-      `Product: ${product.name}`,
-      `Size: ${selectedSize}`,
-      `Quantity: ${quantity}`,
-      `Price: Rp ${finalPrice.toLocaleString("id-ID")}`,
-      `Total: Rp ${totalPrice.toLocaleString("id-ID")}`,
-      "",
-      "Mohon informasi ketersediaan dan proses pemesanannya.",
-    ].join("\n");
+    if (orderChannel === "whatsapp") {
+      const message = [
+        "Halo, saya ingin memesan:",
+        "",
+        `Product: ${product.name}`,
+        `Size: ${selectedSize}`,
+        `Quantity: ${quantity}`,
+        `Price: Rp ${finalPrice.toLocaleString(
+          "id-ID",
+        )}`,
+        `Total: Rp ${totalPrice.toLocaleString(
+          "id-ID",
+        )}`,
+        "",
+        "Mohon informasi ketersediaan dan proses pemesanannya.",
+      ].join("\n");
 
-    const separator = whatsappUrl.includes("?")
-      ? "&"
-      : "?";
+      const separator =
+        whatsappUrl.includes("?")
+          ? "&"
+          : "?";
 
-    const whatsappLink =
-      `${whatsappUrl}${separator}text=` +
-      encodeURIComponent(message);
+      const whatsappLink =
+        `${whatsappUrl}${separator}text=` +
+        encodeURIComponent(message);
 
-    window.location.href = whatsappLink;
+      window.location.href =
+        whatsappLink;
+
+      return;
+    }
+
+    window.location.href =
+      whatsappUrl;
   };
 
-  // =========================
-  // LOADING
-  // =========================
   if (loading) {
     return (
       <main className="min-h-screen bg-base-100">
@@ -218,9 +212,6 @@ const ProductDetail = () => {
     );
   }
 
-  // =========================
-  // ERROR
-  // =========================
   if (error || !product) {
     return (
       <main className="min-h-screen bg-base-100">
@@ -255,10 +246,6 @@ const ProductDetail = () => {
     <main className="bg-base-100 text-base-content">
       <section className="mx-auto w-[100%] py-0 md:w-[80%] md:py-12 lg:w-[80%] lg:py-16">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.05fr_0.95fr] md:gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-
-          {/* =========================
-              PRODUCT IMAGE
-          ========================= */}
           <div>
             <div className="mx-auto w-full max-w-[560px] overflow-hidden bg-base-200 md:max-w-none">
               <div className="aspect-[8/12] w-full lg:aspect-[8/5]">
@@ -286,55 +273,57 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* THUMBNAILS */}
             {images.length > 1 && (
               <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
-                {images.map((image, index) => {
-                  const isActive =
-                    image === activeImage;
+                {images.map(
+                  (image, index) => {
+                    const isActive =
+                      image === activeImage;
 
-                  return (
-                    <button
-                      key={`${image}-${index}`}
-                      type="button"
-                      onClick={() =>
-                        setActiveImage(image)
-                      }
-                      aria-label={`View image ${index + 1}`}
-                      className={`
-                        relative
-                        w-[64px]
-                        shrink-0
-                        overflow-hidden
-                        bg-base-200
-                        md:w-[72px]
-                        ${
-                          isActive
-                            ? "opacity-100 ring-1 ring-base-content"
-                            : "opacity-55 hover:opacity-100"
+                    return (
+                      <button
+                        key={`${image}-${index}`}
+                        type="button"
+                        onClick={() =>
+                          setActiveImage(image)
                         }
-                      `}
-                    >
-                      <div className="aspect-[4/5]">
-                        <img
-                          src={image}
-                          alt={`${product.name} thumbnail ${index + 1}`}
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    </button>
-                  );
-                })}
+                        aria-label={`View image ${
+                          index + 1
+                        }`}
+                        className={`
+                          relative
+                          w-[64px]
+                          shrink-0
+                          overflow-hidden
+                          bg-base-200
+                          md:w-[72px]
+                          ${
+                            isActive
+                              ? "opacity-100 ring-1 ring-base-content"
+                              : "opacity-55 hover:opacity-100"
+                          }
+                        `}
+                      >
+                        <div className="aspect-[4/5]">
+                          <img
+                            src={image}
+                            alt={`${product.name} thumbnail ${
+                              index + 1
+                            }`}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                      </button>
+                    );
+                  },
+                )}
               </div>
             )}
           </div>
 
-          {/* =========================
-              PRODUCT INFORMATION
-          ========================= */}
           <div className="mx-auto w-[96%] md:sticky md:top-28 md:h-fit">
 
-            {/* CATEGORY + GENDER */}
+            {/* CATEGORY / GENDER */}
             {(product.category || gender) && (
               <div className="flex items-center gap-3">
                 {product.category && (
@@ -356,19 +345,15 @@ const ProductDetail = () => {
               </div>
             )}
 
-            {/* PRODUCT NAME */}
             <h1 className="mt-3 max-w-xl font-serif text-3xl leading-[1] tracking-tight md:text-4xl lg:text-5xl">
               {product.name}
             </h1>
-
-            {/* BRAND */}
             {product.brand && (
               <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-base-content/45">
                 {product.brand}
               </p>
             )}
 
-            {/* PRICE */}
             <div className="mt-5">
               {hasDiscount ? (
                 <div className="flex flex-wrap items-center gap-3">
@@ -407,8 +392,6 @@ const ProductDetail = () => {
             </div>
 
             <div className="my-7 border-t border-base-content/10" />
-
-            {/* DESCRIPTION */}
             <div>
               <p className="text-[9px] uppercase tracking-[0.25em] text-base-content/40">
                 Description
@@ -419,11 +402,7 @@ const ProductDetail = () => {
                   "A refined piece designed with simplicity and enduring character."}
               </p>
             </div>
-
-            {/* PRODUCT META */}
             <div className="mt-7 border-y border-base-content/10">
-
-              {/* BRAND */}
               {product.brand && (
                 <div className="flex items-center justify-between py-4">
                   <span className="text-[9px] uppercase tracking-[0.2em]">
@@ -436,7 +415,6 @@ const ProductDetail = () => {
                 </div>
               )}
 
-              {/* GENDER */}
               {gender && (
                 <div
                   className={`flex items-center justify-between py-4 ${
@@ -455,7 +433,6 @@ const ProductDetail = () => {
                 </div>
               )}
 
-              {/* STOCK */}
               <div
                 className={`flex items-center justify-between py-4 ${
                   product.brand || gender
@@ -481,7 +458,6 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* SIZE */}
             <div className="mt-7">
               <div className="flex items-center justify-between">
                 <p className="text-[9px] uppercase tracking-[0.25em]">
@@ -504,7 +480,7 @@ const ProductDetail = () => {
               </div>
 
               <div className="mt-4 grid grid-cols-4 gap-1">
-                {["XS", "S", "M", "L"].map(
+                {["XL", "S", "M", "L"].map(
                   (size) => {
                     const isSelected =
                       selectedSize === size;
@@ -544,15 +520,13 @@ const ProductDetail = () => {
                 )}
               </div>
 
-              {!selectedSize &&
-                !isOutOfStock && (
-                  <p className="mt-3 text-[9px] uppercase tracking-[0.12em] text-base-content/35">
-                    Please select a size
-                  </p>
-                )}
+              {!selectedSize && !isOutOfStock && (
+                <p className="mt-3 text-[9px] uppercase tracking-[0.12em] text-base-content/35">
+                  Please select a size
+                </p>
+              )}
             </div>
 
-            {/* QUANTITY */}
             <div className="mt-7">
               <div className="flex items-center justify-between">
                 <p className="text-[9px] uppercase tracking-[0.25em]">
@@ -621,7 +595,7 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* ORDER SUMMARY */}
+            {/* TOTAL */}
             {!isOutOfStock &&
               selectedSize && (
                 <div className="mt-6 flex items-center justify-between border-t border-base-content/10 pt-4">
@@ -637,8 +611,6 @@ const ProductDetail = () => {
                   </span>
                 </div>
               )}
-
-            {/* ADD TO BAG */}
             <button
               type="button"
               onClick={handleAddToBag}
@@ -649,18 +621,28 @@ const ProductDetail = () => {
                 !selectedSize
               }
               className="
-                mt-6
+                mt-7
+                flex
+                h-12
                 w-full
+                items-center
+                justify-center
+                border
+                border-base-content
                 bg-base-content
-                py-4
-                text-[10px]
+                px-6
+                text-[9px]
+                font-medium
                 uppercase
-                tracking-[0.25em]
+                tracking-[0.2em]
                 text-base-100
-                transition-opacity
-                hover:opacity-80
+                transition-all
+                duration-200
+                hover:opacity-85
                 disabled:cursor-not-allowed
-                disabled:opacity-30
+                disabled:border-base-content/20
+                disabled:bg-base-content/10
+                disabled:text-base-content/40
               "
             >
               {isOutOfStock
@@ -671,10 +653,10 @@ const ProductDetail = () => {
                     ? "Unavailable"
                     : !selectedSize
                       ? "Select Size"
-                      : "Add to Bag"}
+                      : orderChannel === "whatsapp"
+                        ? "Order Now"
+                        : "Order Now"}
             </button>
-
-            {/* WHATSAPP NOT CONFIGURED */}
             {!whatsappLoading &&
               !whatsappUrl &&
               !isOutOfStock && (

@@ -349,7 +349,7 @@ const ProductDetail = () => {
               {product.name}
             </h1>
             {product.brand && (
-              <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-base-content/45">
+              <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-base-content/80">
                 {product.brand}
               </p>
             )}
@@ -364,14 +364,14 @@ const ProductDetail = () => {
                     )}
                   </span>
 
-                  <span className="text-xs text-base-content/35 line-through md:text-sm">
+                  <span className="text-xs text-base-content/40 line-through md:text-sm">
                     Rp{" "}
                     {originalPrice.toLocaleString(
                       "id-ID",
                     )}
                   </span>
 
-                  <span className="inline-flex items-center gap-1.5 border border-base-content/15 px-2 py-1 text-[8px] font-medium uppercase tracking-[0.18em] text-base-content/60">
+                  <span className="inline-flex items-center gap-1.5 border border-base-content/15 px-2 py-1 text-[8px] font-medium uppercase tracking-[0.18em] text-base-content/100">
                     <span>OFF</span>
 
                     <span className="h-2.5 w-px bg-base-content/20" />
@@ -391,9 +391,9 @@ const ProductDetail = () => {
               )}
             </div>
 
-            <div className="my-7 border-t border-base-content/10" />
+            <div className="my-7 border-t border-base-content/20" />
             <div>
-              <p className="text-[9px] uppercase tracking-[0.25em] text-base-content/40">
+              <p className="text-[9px] uppercase tracking-[0.25em] text-base-content/">
                 Description
               </p>
 
@@ -409,7 +409,7 @@ const ProductDetail = () => {
                     Brand
                   </span>
 
-                  <span className="text-[10px] text-base-content/50">
+                  <span className="text-[10px] text-base-content/70">
                     {product.brand}
                   </span>
                 </div>
@@ -427,7 +427,7 @@ const ProductDetail = () => {
                     Gender
                   </span>
 
-                  <span className="text-[10px] text-base-content/50">
+                  <span className="text-[10px] text-base-content/60">
                     {gender}
                   </span>
                 </div>
@@ -448,7 +448,7 @@ const ProductDetail = () => {
                   className={`text-[10px] ${
                     isOutOfStock
                       ? "text-error"
-                      : "text-base-content/50"
+                      : "text-base-content/70"
                   }`}
                 >
                   {isOutOfStock
@@ -470,7 +470,7 @@ const ProductDetail = () => {
                     text-[9px]
                     uppercase
                     tracking-[0.15em]
-                    text-base-content/40
+                    text-base-content/80
                     transition-colors
                     hover:text-primary
                   "
@@ -521,7 +521,7 @@ const ProductDetail = () => {
               </div>
 
               {!selectedSize && !isOutOfStock && (
-                <p className="mt-3 text-[9px] uppercase tracking-[0.12em] text-base-content/35">
+                <p className="mt-3 text-[9px] uppercase tracking-[0.12em] text-base-content/70">
                   Please select a size
                 </p>
               )}
@@ -552,7 +552,7 @@ const ProductDetail = () => {
                     items-center
                     justify-center
                     text-sm
-                    text-base-content/50
+                    text-base-content/70
                     transition-colors
                     hover:text-base-content
                     disabled:cursor-not-allowed
@@ -583,7 +583,7 @@ const ProductDetail = () => {
                     items-center
                     justify-center
                     text-sm
-                    text-base-content/50
+                    text-base-content/70
                     transition-colors
                     hover:text-base-content
                     disabled:cursor-not-allowed
@@ -598,7 +598,7 @@ const ProductDetail = () => {
             {!isOutOfStock &&
               selectedSize && (
                 <div className="mt-6 flex items-center justify-between border-t border-base-content/10 pt-4">
-                  <span className="text-[9px] uppercase tracking-[0.2em] text-base-content/40">
+                  <span className="text-[9px] uppercase tracking-[0.2em] text-base-content/100">
                     Total
                   </span>
 
@@ -641,7 +641,7 @@ const ProductDetail = () => {
                 disabled:cursor-not-allowed
                 disabled:border-base-content/20
                 disabled:bg-base-content/10
-                disabled:text-base-content/40
+                disabled:text-base-content/70
               "
             >
               {isOutOfStock
@@ -659,7 +659,7 @@ const ProductDetail = () => {
             {!whatsappLoading &&
               !whatsappUrl &&
               !isOutOfStock && (
-                <p className="mt-3 text-center text-[9px] uppercase tracking-[0.15em] text-base-content/35">
+                <p className="mt-3 text-center text-[9px] uppercase tracking-[0.15em] text-base-content/65">
                   Ordering is currently unavailable
                 </p>
               )}

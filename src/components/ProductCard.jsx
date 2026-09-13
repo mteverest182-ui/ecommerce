@@ -59,7 +59,7 @@ const ProductCard = ({ product }) => {
                 items-center
                 justify-center
                 text-xs
-                text-base-content/40
+                text-base-content/65
               "
             >
               No Image
@@ -225,7 +225,7 @@ const ProductCard = ({ product }) => {
               <span
                 className="
                   text-[9px]
-                  text-base-content/35
+                  text-base-content/20
                   line-through
 
                   md:text-[10px]
@@ -241,7 +241,7 @@ const ProductCard = ({ product }) => {
             <p
               className="
                 text-xs
-                text-base-content/65
+                text-base-content/6565
 
                 md:text-sm
               "

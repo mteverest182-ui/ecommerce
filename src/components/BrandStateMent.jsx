@@ -195,9 +195,6 @@ const BrandStatement = ({
         </div>
       </div>
 
-      
-    
-
       <div className="hidden lg:block">
         <div className={desktopContainer}>
           

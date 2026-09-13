@@ -338,7 +338,7 @@ const ProductDetail = () => {
                 )}
 
                 {gender && (
-                  <p className="text-[9px] uppercase tracking-[0.25em] text-base-content/40">
+                  <p className="text-[9px] uppercase tracking-[0.25em] text-base-content/80">
                     {gender}
                   </p>
                 )}
@@ -595,7 +595,6 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* TOTAL */}
             {!isOutOfStock &&
               selectedSize && (
                 <div className="mt-6 flex items-center justify-between border-t border-base-content/10 pt-4">

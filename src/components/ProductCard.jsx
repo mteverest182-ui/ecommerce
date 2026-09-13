@@ -161,7 +161,7 @@ const ProductCard = ({ product }) => {
                 text-[9px]
                 uppercase
                 tracking-[0.24em]
-                text-base-content/45
+                text-base-content/80
 
                 md:text-[10px]
                 md:tracking-[0.25em]
@@ -181,7 +181,7 @@ const ProductCard = ({ product }) => {
                 text-[8px]
                 uppercase
                 tracking-[0.2em]
-                text-base-content/30
+                text-base-content/80
 
                 md:text-[9px]
               "

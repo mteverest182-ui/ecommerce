@@ -118,45 +118,36 @@ const HeroBanner = ({ banner }) => {
                                         rounded-none
                                         border
                                         border-white
-                                        bg-transparent
+                                        bg-white
+
                                         px-7
                                         py-3
                                         text-[10px]
                                         uppercase
                                         tracking-[0.2em]
-                                        text-white
-                                        transition-colors
+                                        text-black
+
+                                        transition-all
                                         duration-300
                                         ease-out
+
                                         hover:bg-transparent
                                         hover:text-white
                                     "
                                 >
-                                    <span
-                                        className="
-                                            absolute
-                                            inset-0
-                                            -translate-x-full
-                                            bg-white
-                                            transition-transform
-                                            duration-300
-                                            ease-out
-                                            group-hover:translate-x-0
-                                        "
-                                    />
-
-                                    <span
-                                        className="
-                                            relative
-                                            z-10
-                                            transition-colors
-                                            duration-300
-                                            group-hover:text-black
-                                        "
-                                    >
-                                        Shop Collection
-                                    </span>
-                                </a>
+                                <span
+                                    className="
+                                        relative
+                                        z-10
+                                        text-black
+                                        transition-colors
+                                        duration-300
+                                        group-hover:text-white
+                                    "
+                                >
+                                    Shop Collection
+                                </span>
+                            </a>
                             )}
                         </div>
                     </div>
